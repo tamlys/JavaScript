@@ -1,25 +1,44 @@
 "use strict";
 
-function first() {
-    setTimeout(function() {
-        console.log(1);
-    }, 500);
-}
+const options = {
+    name : "Square",
+    width: 1024,
+    height: 1024,
+    colors : {
+        border: 'black',
+        background: 'red'
+    },
+    makeTest: function() {
+        console.log("Test Function");
+    }
+};
 
-function second() {
-    console.log(2);
-}
+// console.log(options.name);
+// console.log("Background color:", options.colors.border);
 
-first();
-second();
+// delete options.colors.background;
+// console.log("Background color:", options.colors.background);
 
-function learnJS(lang, callback) {
-    console.log(`I learn ${lang}`);
-    callback();
-}
+// options.colors.background = "green";
+// console.log("New Background color:", options.colors.background);
 
-function done() {
-    console.log("I finished this lesson");
-}
+// let counter = 0;
+// for (let key in options) {
+//     if (typeof(options[key]) === 'object') {
+//         for (let i in options[key]) {
+//             console.log(`Property ${i} is ${options[key][i]}`);
+//             counter++;
+//         }
+//     } else {
+//         console.log(`Property ${key} is ${options[key]}`);
+//         counter++;
+//     }
+// }
+// console.log(counter);
 
-learnJS("javaScript", done);
+// console.log(Object.keys(options).length);
+
+// options.makeTest();
+
+const {border, background} = options.colors;
+console.log(background);
