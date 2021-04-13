@@ -1,39 +1,54 @@
-"use strict";
+/* Задания на урок:
 
-// To String
-console.log(typeof(String(null)));
-console.log(typeof(String(4)));
+1) Удалить все рекламные блоки со страницы (правая часть сайта)
 
-console.log(typeof(5 + ''));
+2) Изменить жанр фильма, поменять "комедия" на "драма"
 
-const num = 5;
-console.log("https://yandex.ru/catalog/" + num);
+3) Изменить задний фон постера с фильмом на изображение "bg.jpg". Оно лежит в папке img.
+Реализовать только при помощи JS
 
-const fontSize = 26 + 'px';
+4) Список фильмов на странице сформировать на основании данных из этого JS файла.
+Отсортировать их по алфавиту 
 
-// To Number
-console.log(typeof(Number('4')));
+5) Добавить нумерацию выведенных фильмов */
 
-console.log(typeof(+'4'));
+'use strict';
 
-console.log(typeof(parseInt('15px', 10)));
+const movieDB = {
+    movies: [
+        "Логан",
+        "Лига справедливости",
+        "Ла-ла лэнд",
+        "Одержимость",
+        "Скотт Пилигрим против..."
+    ]
+};
 
-let answer = +prompt("Input number", "");
+const promo = document.querySelectorAll('.promo__adv img');
+const genre = document.querySelector(".promo__genre");
+const poster = document.querySelector(".promo__bg");
+const filmList = document.querySelector(".promo__interactive-list");
 
-// To Boolean
-0, '', null, undefined, NaN
+//1
+promo.forEach(item => {
+    item.remove();
+});
+//2
+genre.textContent = "Драма";
+//3
+poster.style.background = "url('../img/bg.jpg')";
+//4
+filmList.innerHTML = "";
 
-let switcher = null;
-if (switcher) {
-    console.log("Working...");
-}
+movieDB.movies.sort();
+movieDB.movies.forEach((item, index) => {
+    filmList.innerHTML += `
+    <li class="promo__interactive-item">${++index}. ${item}
+        <div class="delete"></div>
+    </li>`;
+});
 
-switcher = 1;
 
-if (switcher) {
-    console.log("Working...");
-}
 
-console.log(typeof(Boolean('4')));
 
-console.log(typeof((!!'4')));
+
