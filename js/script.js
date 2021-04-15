@@ -1,31 +1,43 @@
 'use strict';
 
-const p = document.querySelectorAll('p');
-console.log(p);
+const btns = document.querySelectorAll('button'),
+      wrapper = document.querySelector('.btn-block');
 
+// console.log(btns[0].classList.length);
+// console.log(btns[0].classList.item(0));
+// console.log(btns[1].classList.add('red', 'orange'));
+// console.log(btns[0].classList.remove('blue'));
+// console.log(btns[0].classList.toggle('blue'));
 
+// if (btns[1].classList.contains('red')) {
+//     console.log('red');
+// }
 
-function loadScript(src) {
-    const script = document.createElement('script');
-    script.src = src;
-    script.async = false; 
-    document.body.append(script);
-}
+btns[0].addEventListener('click', () => {
+    // if (!btns[1].classList.contains('red')) {
+    //     btns[1].classList.add('red');
+    // } else {
+    //     btns[1].classList.remove('red');
+    // }
+    btns[1].classList.toggle('red');
+});
 
-loadScript("js/test.js");
-loadScript("js/some.js");
+// console.log(btns[0].className);
 
+wrapper.addEventListener('click', (event) => {
+    // if (event.target && event.target.classList.contains('blue')) {
+    // if (event.target && event.target.tagName == "BUTTON") {
+    if (event.target && event.target.matches('button.red')) {
+        console.log('hello');
+    }
+});
 
-// defer - не блокирует страницу, дойдя до скрипта,
-// продолжает загружать страницу и в фоновом режиме грузит скрипт.
-// Скрипт начнет выполняться только тогда, когда будет загружено DOM дерево,
-// если js файлов несколько, то выполняются последовательно
+// btns.forEach(btn => {
+//     btn.addEventListener('click', () => {
+//         console.log("hi!");
+//     });
+// });
 
-// async - страница не ждет скрипт. Содержимое обрабатывается и отображается
-// DOMContentLoaded и async скрипты не ждут друг друга
-// какой файл скрипта быстрее прогрузился(фон. реж), тот и заработал первым
-// Применяется к скриптам, которые не зависят от DOM структуры +
-// не должен зависить от других скриптов
-
-// Динамически загружаемые скрипты ведут себя также, как async.
-// С помощью script.async = false будет вести себя как и обычный скрипт
+const btn = document.createElement('button');
+btn.classList.add('red');
+wrapper.append(btn);

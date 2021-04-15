@@ -1,0 +1,12 @@
+button {
+    height: 40px;
+    width: 80px;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.red {
+    background-color: red;
+}
