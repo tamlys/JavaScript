@@ -1,39 +1,47 @@
 'use strict';
+const btn = document.querySelector('.btn');
+let timerId,
+    i = 0;
 
-window.addEventListener('DOMContentLoaded', () => {
-    const tabs = document.querySelectorAll('.tabheader__item'),
-          tabsContent = document.querySelectorAll('.tabcontent'),
-          tabsParent = document.querySelector('.tabheader__items');
+function myAnimation() {
+    const elem = document.querySelector('.box');
+    let position = 0;
 
-    function hideTabContent() {
-        tabsContent.forEach(item => {
-            item.classList.add('hide');
-            item.classList.remove('show', 'fade');
-        });
-        tabs.forEach(item => {
-            item.classList.remove('tabheader__item_active');
-        });
-    }
-
-    function showTabContent(index = 0) {
-        tabsContent[index].classList.add('show', 'fade');
-        tabsContent[index].classList.remove('hide');
-        tabs[index].classList.add('tabheader__item_active');
-    }
-
-    hideTabContent();
-    showTabContent();
-
-    tabsParent.addEventListener('click', (event) => {
-        const target = event.target;
-
-        if (target && target.classList.contains('tabheader__item')) {
-            tabs.forEach((item, i) => {
-                if (target == item) {
-                    hideTabContent();
-                    showTabContent(i);
-                }
-            });
+    const id = setInterval(frame, 10);
+    function frame() {
+        if (position == 300) {
+            clearInterval(id);
+        } else {
+            position++;
+            elem.style.top = position + 'px';
+            elem.style.left = position + 'px';
         }
-    });
-});
+    }
+}
+
+btn.addEventListener('click', myAnimation);
+
+// const timerId = setTimeout(function(text) {
+//     console.log(text);
+// }, 2000, 'Hi');
+
+// setTimeout(logger, 2000);
+
+// btn.addEventListener('click', () => {
+//     // const timerId = setTimeout(logger, 2000);
+//     timerId = setInterval(logger, 2000);
+// });
+
+// function logger() {
+//     if (i == 3) {
+//         clearInterval(timerId);
+//     }
+//     console.log('text');
+//     i++;
+// }
+
+// let id = setTimeout(function log() {
+//     console.log('hhhh');
+//     id = setTimeout(log, 500);
+// }, 500);
+
