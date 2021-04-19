@@ -1,27 +1,93 @@
 'use strict';
+// Tabs
+window.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tabheader__item'),
+          tabsContent = document.querySelectorAll('.tabcontent'),
+          tabsParent = document.querySelector('.tabheader__items');
 
-const now = new Date('2021-04-18');
-// new Date.parse('2021-04-18');
+    function hideTabContent() {
+        tabsContent.forEach(item => {
+            item.classList.add('hide');
+            item.classList.remove('show', 'fade');
+        });
+        tabs.forEach(item => {
+            item.classList.remove('tabheader__item_active');
+        });
+    }
 
-// console.log(now.setHours(18,  20, 30));
-// console.log(now);
+    function showTabContent(index = 0) {
+        tabsContent[index].classList.add('show', 'fade');
+        tabsContent[index].classList.remove('hide');
+        tabs[index].classList.add('tabheader__item_active');
+    }
 
-// console.log(now.getFullYear());
-// console.log(now.getMonth());
-// console.log(now.getDate());
-// console.log(now.getDay());
-// console.log(now.getHours());
-// console.log(now.getUTCHours());
+    hideTabContent();
+    showTabContent();
 
-// console.log(now.getTimezoneOffset());
-// console.log(now.getTime());
+    tabsParent.addEventListener('click', (event) => {
+        const target = event.target;
 
-let start = new Date();
+        if (target && target.classList.contains('tabheader__item')) {
+            tabs.forEach((item, i) => {
+                if (target == item) {
+                    hideTabContent();
+                    showTabContent(i);
+                }
+            });
+        }
+    });
+    
+    // Timer
 
-for (let i = 0; i < 100000; i++) {
-    let some = i ** 3;
-}
+    const deadLine = '2021-05-17';
 
-let end = new Date();
+    function getTimeRemaining(endtime) {
+        const t = Date.parse(endtime) - Date.parse(new Date()),
+              days = Math.floor(t / (1000 * 60 * 60 * 24)),
+              hours = Math.floor((t / (1000 * 60 * 60) % 24)),
+              minutes = Math.floor((t / 1000 / 60) % 60),
+              seconds = Math.floor((t / 1000) % 60);
 
-alert(`Цикл отработал за ${end - start} миллисекунд`);
+        return {
+            'total': t,
+            'days': days,
+            'hours': hours,
+            'minutes': minutes,
+            'seconds': seconds
+        };
+    }
+
+    function getZero(num) {
+        if (num >= 0 && num < 10) {
+            return `0${num}`;
+        } else {
+            return num;
+        }
+    }
+
+    function setClock(selector, endtime) {
+        const timer = document.querySelector(selector),
+              days = timer.querySelector('#days'),
+              hours = timer.querySelector('#hours'),
+              minutes = timer.querySelector('#minutes'),
+              seconds = timer.querySelector('#seconds'),
+              timeInterval = setInterval(updateClock, 1000);
+        
+        updateClock();
+
+        function updateClock() {
+            const t = getTimeRemaining(endtime);
+
+            days.innerHTML = getZero(t.days);
+            hours.innerHTML = getZero(t.hours);
+            minutes.innerHTML = getZero(t.minutes);
+            seconds.innerHTML = getZero(t.seconds);
+
+            if (t.total <= 0) {
+                clearInterval(timeInterval);
+            }
+        }
+    }
+
+    setClock('.timer', deadLine);
+});
