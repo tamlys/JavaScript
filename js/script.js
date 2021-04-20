@@ -153,17 +153,18 @@ function User(name, id) {
 
 const ivan = new User('Ivan', 28);
 
-ivan.hello();
-ivan.exit();
+// ivan.exit();  Вызов до объявления метода, не сработает!
 User.prototype.exit = function() {
     console.log(`Пользователь ${this.name} ушел`);
 };
 
-
 const alex = new User('Alex', 20);
 
 alex.hello();
+ivan.hello();
+
 alex.exit();
+ivan.exit();
 
 console.log(ivan);
 console.log(alex);
