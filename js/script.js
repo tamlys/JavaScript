@@ -141,97 +141,35 @@
 //     window.addEventListener('scroll', showModalByScroll);
 // });
 
-function showThis(a, b) {
-    console.log(this);
-    function sum() {
-        console.log(this)
-        return a + b;
+class Rectangle {
+    constructor(height, width) {
+        this.height = height;
+        this.width = width;
     }
-    console.log(sum());
-}
 
-showThis(4, 5);
-
-const obj = {
-    a: 20,
-    b: 15,
-    sum: function() {
-        function shout() {
-            console.log(this);
-        }
-        shout();
+    calcArea() {
+        return this.height * this.width;
     }
-};
-
-obj.sum();
-
-function User(name, id) {
-    this.name = name;
-    this.id = id;
-    this.human = true;
-    this.hello = function() {
-        console.log('Hello! ' + this.name);
-    };
 }
 
-let ivan = new User('Ivan', 23);
-
-function sayName(surname) {
-    console.log(this);
-    console.log(this.name + ' ' + surname);
-}
-
-const user = {
-    name: 'John'
-};
-
-sayName.call(user, 'Smith');
-sayName.apply(user, ['Smith']);
-
-function count(num) {
-    return this*num;
-}
-
-const double = count.bind(2);
-console.log(double(3));
-
-const btn = document.querySelector('button');
-
-btn.style.width = '100px';
-btn.style.height = '50px';
-btn.style.display = 'block';
-btn.style.margin = '0 auto';
-
-btn.addEventListener('click', function() {
-// btn.addEventListener('click', (e) => {
-    this.style.background = 'red';
-    // e.target.style.background = 'red';
-    console.log(this);
-    // Обращается к элементу на котором происходит событие - button.
-    // Если будем использовать стрелочную функцию - window
-});
-
-const object = {
-    num: 5,
-    sayNumber: function() {
-        const say = () => {
-            console.log(this);
-        };
-        say();
+class ColoredRectangleWithText extends Rectangle {
+    constructor(height, width, bgColor, text) {
+        super(height, width);
+        this.text = text;
+        this.bgColor = bgColor;
     }
-};
 
-object.sayNumber(); // Стрелочная функция не имеет контекста 
-                //- будет указывать на контекст родителя
+    showMyProps() {
+        console.log(`Text: ${this.text}, color: ${this.bgColor}`);
+    }
+}
 
-const dbl = a => a * 2;
+const square = new Rectangle(10, 10);
+const long = new Rectangle(5, 15);
+const squareColored = new ColoredRectangleWithText(10, 10, 'This is red square', 'red');
 
-console.log(dbl(4));
 
-/*
- 1) Обычная функция: this = window, но если use strict - undefined
- 2) Контекст у методов объекта - сам объект
- 3) this в конструкторах и классах, это новый экземпляр объекта
- 4) Ручная привязка this: call, apply, bind
-*/
-
+// console.log(square.calcArea());
+// console.log(long.calcArea());
+squareColored.showMyProps();
+console.log(squareColored.calcArea());
